@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Odinbook</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+  <body class="bg-gray-50 text-gray-900 min-h-screen">
+
+    <nav class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+      <span class="font-semibold text-lg tracking-tight">Odinbook</span>
+      <div class="flex gap-6 text-sm">
+        <% if user_signed_in? %>
+          <%= link_to "Feed", posts_path, class: "hover:text-blue-500 transition" %>
+          <%= link_to "Users", users_path, class: "hover:text-blue-500 transition" %>
+          <%= link_to "Requests", friendships_path, class: "hover:text-blue-500 transition" %>
+          <%= link_to "Sign Out", destroy_user_session_path, class: "hover:text-red-400 transition" %>
+        <% else %>
+          <%= link_to "Sign In", new_user_session_path, class: "hover:text-blue-500 transition" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "hover:text-blue-500 transition" %>
+        <% end %>
+      </div>
+    </nav>
+
+    <main class="max-w-2xl mx-auto px-4 py-8">
+      <% if notice %>
+        <p class="mb-4 text-sm text-green-600 bg-green-50 px-4 py-2 rounded"><%= notice %></p>
+      <% end %>
+      <%= yield %>
+    </main>
+
+  </body>
+</html>

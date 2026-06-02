@@ -1,0 +1,10 @@
+<h1>Friend Requests</h1>
+
+<% @pending_requests.each do |friendship| %>
+  <div>
+    <p><%= friendship.requester.name %> sent you a friend request</p>
+    <%= button_to "Accept", friendship_path(friendship), method: :patch %>
+    <%= button_to "Decline", friendship_path(friendship), method: :delete %>
+  </div>
+  <hr>
+<% end %>

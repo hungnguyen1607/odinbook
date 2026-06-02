@@ -1,0 +1,16 @@
+<h1>Users</h1>
+
+<% @users.each do |user| %>
+  <div>
+    <p><%= link_to user.name, user_path(user) %></p>
+
+    <% if @pending_sent.include?(user.id) %>
+      <p>Pending</p>
+    <% elsif current_user.friends.include?(user) %>
+      <p>Friends</p>
+    <% else %>
+      <%= button_to "Add Friend", friendships_path(receiver_id: user.id), method: :post %>
+    <% end %>
+  </div>
+  <hr>
+<% end %>

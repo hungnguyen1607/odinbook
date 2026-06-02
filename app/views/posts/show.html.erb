@@ -1,0 +1,11 @@
+<p><strong><%= @post.user.name %></strong></p>
+<p><%= @post.content %></p>
+
+<% @post.comments.each do |comment| %>
+  <p><strong><%= comment.user.name %></strong>: <%= comment.body %></p>
+<% end %>
+
+<%= form_with model: [@post, Comment.new], local: true do |f| %>
+  <%= f.text_field :body, placeholder: "Add a comment..." %>
+  <%= f.submit "Comment" %>
+<% end %>
