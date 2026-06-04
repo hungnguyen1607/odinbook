@@ -1,7 +1,7 @@
 lock "~> 3.20"
 
 set :application, "odinbook"
-set :repo_url, "git@github.com:hungnguyeng1607/odinbook.git"
+set :repo_url, "git@github.com:hungnguyen1607/odinbook.git"
 set :branch, :main
 set :deploy_to, "/var/www/odinbook"
 set :pty, true
