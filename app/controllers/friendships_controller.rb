@@ -11,9 +11,11 @@ class FriendshipsController < ApplicationController
   end
 
   def update
-    friendship = current_user.received_requests.find(params[:id])
-    friendship.update(status: "accepted")
-    redirect_to friendships_path
+    friendship = Friendship.find(params[:id])
+    if friendship.receiver == current_user
+      friendship.update(status: "accepted")
+    end
+      redirect_to friendships_path
   end
 
   def destroy
