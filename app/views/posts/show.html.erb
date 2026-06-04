@@ -1,11 +1,20 @@
-<p><strong><%= @post.user.name %></strong></p>
-<p><%= @post.content %></p>
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+  <p class="font-semibold text-gray-900 mb-1"><%= @post.user.name %></p>
+  <p class="text-gray-700"><%= @post.content %></p>
+</div>
 
-<% @post.comments.each do |comment| %>
-  <p><strong><%= comment.user.name %></strong>: <%= comment.body %></p>
-<% end %>
+<div class="space-y-3 mb-6">
+  <% @post.comments.each do |comment| %>
+    <div class="bg-white rounded-lg border border-gray-200 px-4 py-3">
+      <span class="font-medium text-gray-800 text-sm"><%= comment.user.name %></span>
+      <span class="text-gray-600 text-sm ml-2"><%= comment.body %></span>
+    </div>
+  <% end %>
+</div>
 
 <%= form_with model: [@post, Comment.new], local: true do |f| %>
-  <%= f.text_field :body, placeholder: "Add a comment..." %>
-  <%= f.submit "Comment" %>
+  <div class="flex gap-2">
+    <%= f.text_field :body, placeholder: "Add a comment...", class: "flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+    <%= f.submit "Comment", class: "bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded-lg cursor-pointer transition" %>
+  </div>
 <% end %>
