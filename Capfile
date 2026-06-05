@@ -6,7 +6,6 @@ require "capistrano/rails/assets"
 require "capistrano/rails/migrations"
 require "capistrano/puma"
 require "capistrano/scm/git"
-require "capistrano/tailwindcss"
 install_plugin Capistrano::Puma
 install_plugin Capistrano::SCM::Git
 
