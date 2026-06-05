@@ -1,21 +1,43 @@
 <h1 class="text-xl font-semibold mb-6">Users</h1>
 
-<% @users.each do |user| %>
-  <div class="bg-white border border-gray-200 rounded-lg p-4 mb-3 flex justify-between items-center">
-    <div>
-      <%= link_to user.name, user_path(user), class: "font-medium text-sm hover:text-blue-500 transition" %>
-      <p class="text-xs text-gray-400"><%= user.email %></p>
-    </div>
+<%# You %>
+<div class="bg-white border border-gray-200 rounded-lg p-4 mb-3 flex justify-between items-center">
+  <div>
+    <%= link_to @current.name, user_path(@current), class: "font-medium text-sm hover:text-blue-500 transition" %>
+    <p class="text-xs text-gray-400"><%= @current.email %></p>
+  </div>
+  <span class="text-xs text-blue-400 border border-blue-200 px-3 py-1 rounded">You</span>
+</div>
 
-    <div>
+<%# Friends %>
+<% if @friends.any? %>
+  <h2 class="text-sm font-semibold text-gray-500 mt-6 mb-3">Friends</h2>
+  <% @friends.each do |user| %>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 mb-3 flex justify-between items-center">
+      <div>
+        <%= link_to user.name, user_path(user), class: "font-medium text-sm hover:text-blue-500 transition" %>
+        <p class="text-xs text-gray-400"><%= user.email %></p>
+      </div>
+      <span class="text-xs text-green-500 border border-green-200 px-3 py-1 rounded">Friends</span>
+    </div>
+  <% end %>
+<% end %>
+
+<%# Others %>
+<% if @others.any? %>
+  <h2 class="text-sm font-semibold text-gray-500 mt-6 mb-3">People you may know</h2>
+  <% @others.each do |user| %>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 mb-3 flex justify-between items-center">
+      <div>
+        <%= link_to user.name, user_path(user), class: "font-medium text-sm hover:text-blue-500 transition" %>
+        <p class="text-xs text-gray-400"><%= user.email %></p>
+      </div>
       <% if @pending_sent.include?(user.id) %>
         <span class="text-xs text-gray-400 border border-gray-200 px-3 py-1 rounded">Pending</span>
-      <% elsif @friends.include?(user) %>
-        <span class="text-xs text-green-500 border border-green-200 px-3 py-1 rounded">Friends</span>
       <% else %>
         <%= button_to "Add Friend", friendships_path(receiver_id: user.id), method: :post,
             class: "text-xs bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition cursor-pointer" %>
       <% end %>
     </div>
-  </div>
+  <% end %>
 <% end %>

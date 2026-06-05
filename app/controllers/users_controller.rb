@@ -6,9 +6,9 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.where.not(id: current_user.id)
-    @pending_sent = current_user.sent_requests.pluck(:receiver_id)
+    @current = current_user
     @friends = current_user.friends + current_user.friends_received
-
+    @others = User.where.not(id: [@current.id] + @friends.map(&:id))
+    @pending_sent = current_user.sent_requests.pluck(:receiver_id)
   end
 end

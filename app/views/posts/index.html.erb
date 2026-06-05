@@ -7,7 +7,7 @@
   <div class="bg-white border border-gray-200 rounded-lg p-5 mb-4">
     <div class="flex justify-between items-start mb-3">
       <div>
-        <p class="font-medium text-sm"><%= post.user.name %></p>
+        <%= link_to post.user.name, user_path(post.user), class: "font-medium text-sm hover:text-blue-500 transition" %>
         <p class="text-xs text-gray-400"><%= post.created_at.strftime("%b %d, %Y") %></p>
       </div>
       <% if post.user == current_user %>
@@ -16,7 +16,9 @@
     </div>
 
     <p class="text-sm text-gray-800 mb-4"><%= post.content %></p>
-
+    <% if post.image.attached? %>
+      <%= image_tag post.image, class: "rounded-lg w-full object-cover max-h-96 mb-4" %>
+    <% end %>
     <div class="flex items-center gap-4 text-xs text-gray-500 mb-4">
       <% if post.likes.exists?(user: current_user) %>
         <%= button_to "Unlike", post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: "text-blue-500 bg-transparent border-0 cursor-pointer text-xs" %>

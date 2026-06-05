@@ -18,3 +18,13 @@ set :puma_access_log, "#{release_path}/log/puma.access.log"
 set :puma_error_log, "#{release_path}/log/puma.error.log"
 set :puma_preload_app, true
 
+
+namespace :deploy do
+  before "deploy:assets:precompile", :build_tailwind do
+    on roles(:web) do
+      within release_path do
+        execute :bundle, "exec rails tailwindcss:build"
+      end
+    end
+  end
+end
