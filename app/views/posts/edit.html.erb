@@ -1,5 +1,5 @@
 <div class="bg-white border border-gray-200 rounded-lg p-6">
-  <h1 class="text-lg font-semibold mb-4">New Post</h1>
+  <h1 class="text-lg font-semibold mb-4">Edit Post</h1>
   <%= form_with model: @post, local: true do |f| %>
     <%= f.text_area :content, placeholder: "What's on your mind?",
         rows: 4,
@@ -12,6 +12,6 @@
       <% end %>
       <%= f.file_field :image, class: "hidden" %>
     </div>
-    <%= f.submit "Post", class: "mt-3 bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition cursor-pointer" %>
+    <%= f.submit "Update", class: "mt-3 bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition cursor-pointer" %>
   <% end %>
 </div>

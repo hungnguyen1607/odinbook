@@ -11,7 +11,10 @@
         <p class="text-xs text-gray-400"><%= post.created_at.strftime("%b %d, %Y") %></p>
       </div>
       <% if post.user == current_user %>
-        <%= button_to "Delete", post, method: :delete, class: "text-xs text-red-400 hover:text-red-600 transition bg-transparent border-0 cursor-pointer" %>
+        <div class="flex gap-2 items-center">
+          <%= link_to "Edit", edit_post_path(post), class: "text-xs text-blue-400 border border-blue-200 px-3 py-1 rounded hover:bg-blue-50 transition" %>
+          <%= button_to "Delete", post, method: :delete, class: "text-xs text-red-400 border border-red-200 px-3 py-1 rounded hover:bg-red-50 transition bg-transparent cursor-pointer" %>
+        </div>
       <% end %>
     </div>
 
