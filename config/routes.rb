@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   end
 
   resources :friendships, only: [:index, :create, :update, :destroy]
-  resources :users, only: [:index, :show], path: 'members'
+  resources :users, only: [:index, :show, :edit, :update], path: 'members'
 end

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.order(created_at: :desc)
@@ -10,5 +11,27 @@ class UsersController < ApplicationController
     @friends = current_user.friends + current_user.friends_received
     @others = User.where.not(id: [@current.id] + @friends.map(&:id))
     @pending_sent = current_user.sent_requests.pluck(:receiver_id)
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    redirect_to users_path unless @user == current_user
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user == current_user
+      if @user.update(user_params)
+        redirect_to user_path(@user), notice: "Profile updated."
+      else
+        render :edit
+      end
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name)
   end
 end

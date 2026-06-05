@@ -3,5 +3,5 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_one_attached :image
-  validates :content, presence: true 
+  validates :content, presence: true, unless: -> { image.attached? }
 end

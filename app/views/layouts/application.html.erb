@@ -15,6 +15,7 @@
       <div class="flex gap-6 text-sm">
         <% if user_signed_in? %>
           <%= link_to "Feed", posts_path, class: "hover:text-blue-500 transition" %>
+          <%= link_to "Profile", user_path(current_user), class: "hover:text-blue-500 transition" %>
           <%= link_to "Users", users_path, class: "hover:text-blue-500 transition" %>
           <%= link_to "Requests", friendships_path, class: "hover:text-blue-500 transition" %>
           <%= link_to "Sign Out", destroy_user_session_path, class: "hover:text-red-400 transition" %>

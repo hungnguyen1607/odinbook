@@ -1,11 +1,10 @@
 class User < ApplicationRecord
   after_create :send_welcome_email
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  before_create :set_default_name
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
-  validates :name, presence: true 
+
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -15,13 +14,15 @@ class User < ApplicationRecord
 
   has_many :friends, -> { where(friendships: { status: "accepted" }) },
             through: :sent_requests, source: :receiver
-  
-  
+
   has_many :friends_received, -> { where(friendships: { status: "accepted" }) },
             through: :received_requests, source: :requester
 
-
   private
+
+  def set_default_name
+    self.name ||= email.split("@").first
+  end
 
   def send_welcome_email
     UserMailer.welcome_email(self.id).deliver_later

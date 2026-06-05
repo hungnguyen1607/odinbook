@@ -1,16 +1,14 @@
 <div class="bg-white border border-gray-200 rounded-lg p-6">
   <h1 class="text-lg font-semibold mb-4">New Post</h1>
-  <%= form_with model: @post, local: true do |f| %>
+  <%= form_with model: @post, local: true, multipart: true do |f| %>
     <%= f.text_area :content, placeholder: "What's on your mind?",
         rows: 4,
         class: "w-full border border-gray-200 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400 resize-none" %>
     <div class="mt-3">
-      <%= f.label :image, class: "block text-sm text-gray-500 mb-1" do %>
-        <div class="border-2 border-dashed border-gray-300 rounded-lg px-4 py-6 text-center cursor-pointer hover:border-blue-400 transition">
-          <p class="text-sm text-gray-400">📎 Click to upload an image (optional)</p>
-        </div>
-      <% end %>
-      <%= f.file_field :image, class: "hidden" %>
+      <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-lg px-4 py-6 text-center cursor-pointer hover:border-blue-400 transition" onclick="document.getElementById('post_image').click()">
+        <p class="text-sm text-gray-400" id="upload-text">📎 Click to upload an image (optional)</p>
+      </div>
+      <%= f.file_field :image, id: "post_image", style: "display:none", onchange: "document.getElementById('upload-text').textContent = this.files[0] ? this.files[0].name : '📎 Click to upload an image (optional)'" %>
     </div>
     <%= f.submit "Post", class: "mt-3 bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition cursor-pointer" %>
   <% end %>
