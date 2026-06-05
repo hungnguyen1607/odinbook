@@ -74,6 +74,6 @@ group :development, :test do
   gem "capistrano-bundler"
   gem "capistrano3-puma"
   gem "capistrano-passenger"
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[ mri windows ]
 
 end
