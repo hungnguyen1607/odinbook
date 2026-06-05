@@ -28,3 +28,14 @@ namespace :deploy do
     end
   end
 end
+
+namespace :deploy do
+  after :finished, :restart_puma do
+    on roles(:web) do
+      within release_path do
+        execute :pkill, "-f puma", raise_on_non_zero_exit: false
+        execute "RAILS_ENV=production nohup bundle exec puma -C #{release_path}/config/puma.rb &"
+      end
+    end
+  end
+end
